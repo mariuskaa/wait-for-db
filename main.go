@@ -42,6 +42,7 @@ func main() {
 	for {
 		err = db.Ping()
 		if err == nil {
+			db.Close()
 			fmt.Println("service is ready to go!")
 			cmd := exec.Command(command)
 			output, err := cmd.CombinedOutput()
@@ -56,4 +57,5 @@ func main() {
 			time.Sleep(time.Duration(count) * time.Second)
 		}
 	}
+	defer db.Close()
 }
